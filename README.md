@@ -13,6 +13,6 @@ XeLaTeX
 biber
 arara
 
-# Final note
+### Final note
 
 A XeLaTeX template used in this thesis was created by their authors listed in `template/FITthesisXE.cls`. A directory structure is inspired by https://github.com/Sanqui/fedorator-thesis.
