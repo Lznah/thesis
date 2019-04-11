@@ -3,6 +3,6 @@ BT_Hanzl_Petr_2019:
 	mv main.pdf BT_Hanzl_Petr_2019.pdf
 
 clean:
-	git clean -Xf
+	git clean -Xdf
 
 .PHONY: clean all
