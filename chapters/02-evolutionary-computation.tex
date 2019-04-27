@@ -1,0 +1,76 @@
+\chapter{Evolutionary Computation (EC)}
+In computer science, evolutionary computation is an umbrella term for algorithms, that are inspired by biological evolution with similar mechanisms seen in nature and used on computer for automated global optimization. A goal of evolutionary computation is to produce highly optimized solutions from initial set by repeteadly applying similar mechanisms from the biological evolution in an attempt, that each iteration of applying these mechanisms over big set of solution, produces similar solutions to continuesly get better optimized solutions. Evolutionary computation has numerous applications in problem solving, designing, planning, machine learning an more \cite{handbook-of-evolutionary-computation}.
+
+\section{Evolutionary Algorithm (EA)}
+Evolutionary algorithms are a subgroup of algorithms from evolutionary computation using the same mechanisms to breed higher optimized solutions. These mechanism are:
+\begin{itemize}
+  \item initialization
+  \item selection
+  \item mutation
+  \item recombination (crossover)
+\end{itemize}
+
+They are called evolutionary operators \cite{evolutionary-operators} and ways how they are applied on an individual from a population, differ from one algorithm to another, but all of them simulates the same principle from the biological evolution. The order how these operators are applied is shown in figure \ref{pic:evolutionaryalgorithm.png}. Even same called EAs can use a bit different evolutionary operators. What defines EAs more than evolutionary operator is a representation of an individual.
+
+Usually, scientists distinquist two basic structures representing the individual, tree-like structures and string structures. These structures can not be mixed in population. That means, the evolutionary algorithm can not use tree-like structure and string structure at the same time, in the same population, because there is no way how to combine the solutions, which is a pillar of evolutionary computation, but a tree-like structure can be encoded into a string \cite{gene-expression}. Additionaly, these structures use different representation of a single gene in its genetic code. It can be integer, binary or real number representation of a gene for string structured chromosomes.
+
+
+\imagefigurelarge{evolutionaryalgorithm.png}{Evolutionary Algorithm \cite{evolutionary-algorithm-image}}
+
+\section{Individual's Representation}
+In biological evolutions, a genotype and a phenotype are very-similar sounding words. These two terms are related, but they still mean different things.
+The genotype is a genetic code, a set of genes, that is inherited from ancestors on an organism. For the organism, its DNA or RNA is its genotype.
+The phenotype is a physical expression of these genes, this genotype, and an environmental influence of the organism.
+The genotype can not be determined by simple observation, but the phenotype can be. For example, an eye color is the inherited trait from parents. The eye color is written in DNA by the same sequence of genes, but its actual appereance is the phenotype. Furthermore, two people can have same eye color, they share the same phenotype, even though they are not relatives and they do not share the same genotype, same genes \cite{genotype-phenotype}.
+
+Evolutionary algorithm are also distinquished by their ability how acurately they simulate coding and processes from biological evolution. The basic ones, like genetic algorithm or genetic programming, simulate only simple encoding of genes in genotype and simple translation of the genotype into phenotype. The more complex EAs simulate much complex encoding and translation. These more complex algorithms typically come up with more terms from biological evolution. For example codons, alleles and so on, that desribe substructures in the individual's genotype. Evolutionary operators of these more complex EAs are able to handle these more sophisticated structures, thus descriptions of their functionality are also more complex. Grammatical Evolution is one of these more complex EAs.
+
+\subsection{String}
+String representation of the individual is a sequence of genes. These genes can be represented with boolean, integer or real number value.
+The main characteristics of string representation is that two parents can be easily combined into an offstring by a simple cut in the. Mutation is just a change of a value in the gene. Representative example of EA with string representation of the genotype is Genetic Algorithm (GA). EAs with string representation are usually much more easy too implement than EAs with tree-like structure, but it is not a rule. As it was said before, Grammatical Evolution is a complex EA, even though it uses string representation of the genotype. Typically, EAs with this representation of the individual are used for problem solving.
+
+\subsection{Tree}
+Tree representation of the individual is a connected graph that contains no cycles \cite{tree-definition}. This representation is often used in EAs, that are used to find and optimize mathematical equations or programs.
+
+\section{Evolutionary Operators}
+Each EA has a bit different evolutionary operators and how they are applied on the genotype of the individual from the population. A functionality of the evolutionary operators,  mostly depends on representation of the genotype. The functionality also depends on representation of a single gene. Regardles of different applications, the evolutionary operators still simulate the same thing from the biological evolution.
+
+\subsection{Initialization}
+The first step that each EA does is an initialization of a population of individuals. How well this step is done, can significantly increase convergence of the evolutionary algorithm to satisfy its goal.
+
+\subsection{Selection}
+Each iteration in EA, all individuals are measured by fitness function, that gives every individual a score called fitness. Fitness of an individual says how good is the individual, how well it is optimized for a given problem and what is its quality. The best solutions with highest scoe are selected for breeding. This is only one possible way of selection. There are actually more ways how to select these solutions to prevent EA to stuck in a local optimum. Selecting only top $n$ individuals for breeding can correspond in production of very similar individuals with the same score and without bonuses from breeding of these solution. EA that stuck in the local optimum is not able to find better quality solutions in a state space throughout iteration.
+
+Again, there are much more algorithms for selection of individuals for breeding, but the most used ones are tournament selection and fitness proportiate selection.
+
+\imagefigure{fitness-proportiate-selection.png}{Fitness proportiate selection. \cite{fitness-proportiate-selection}}
+
+\textbf{Tournament Selection} iteratively creates a pool(tournament) of $n$ random individuals from population and from this tournament top $m$ individuals with highest fitness are selection for breeding.
+
+\textbf{Fitness proportionate selection} could be imagined like a roulette wheel in a casino that is shown in figure  \ref{pic:fitness-proportiate-selection.png}. A proportion of each individual on the wheel is assigned by its fitness. Usually, fitness of each individual is normalized to 1 or divided by total sum of all fitness values. Then, algorithm starts to randomly rotate with the wheel that leads to selecting the individual and lowering its proportion on the wheel.
+
+
+\subsection{Mutation}
+In biology, mutation is a biological process, that changes random genes in the genotype of the individual, in an attempt to find new characteristics, that can be very useful in a life of a new born creature. Exploration of these new characteristics can still create weaker creatures, that are not able to spread their genes in following generation and natural selection can deal with them, but characteristics discovered by mutation have not been discovered in creature's parents yet . Not-yet discovered features can help the creature to survive in the changing environment and this is the reason, why it is so important.
+
+In evolutionary algorithms, mutation works exactly the same way. It can also create worse-optimized individuals, but its biggest benefit is that it find new ways and helps EA to not stuck in local optimum.
+
+\imagefigure{string-mutation.png}{Mutation of a string genotype \cite{string-mutation}}
+\textbf{Mutation of a string genotype} is a random change to different value of a random gene in the individual's genotype. It is shown in figure \ref{pic:string-mutation.png}, where 4 genes out of 7 of the individual's genotype are changed. There are two blue big squares, that are mutated into red small squares and there are also two red small squares, that are mutated into big blue squares. This created a new individual, that might be better optimized than the previous one.
+
+
+\imagefigurefull{tree-mutation.png}{Mutation of a tree-like genotype \cite{tree-mutation}}{1}
+\textbf{Mutation of a tree-like genotype} is a random expansion of a random node in the tree to a different node or a different subtree. It is shown in figure \ref{pic:tree-mutation.png}, where is the arrow pointing at the red node. This whole subtree of the red node with its two sons is replaced by a different subtree.
+
+
+\subsection{Recombination}
+Also known as crossover, recombination is a method that combines genotypes of one or two parents into genotypes of one or two individuals. Two basic types of recombination are asexual and sexual recombination and they are distinquished by number of included parents in the newly created genotype. Asexual recombination is not possible for same length string genotypes, but it is possible for variable length string genotypes and for tree-like ones. Asexual recombination is not possible for same length string genotypes, because of their representation. A new individual with different genotypes can not be created from the same length sequence of values, it is always identical to its parent. Tree-like genotypes can always change at least their leaves of subtrees. Variable length sequences can shrink.
+
+\section{Evolutionary Algorithms}
+\blindtext
+\subsection{Genetic Algorithm}
+\blindtext
+\blindtext
+\subsection{Genetic Programming}
+\blindtext
+\blindtext
