@@ -26,8 +26,8 @@ The genotype can not be determined by simple observation, but the phenotype can 
 Evolutionary algorithm are also distinquished by their ability how acurately they simulate coding and processes from biological evolution. The basic ones, like genetic algorithm or genetic programming, simulate only simple encoding of genes in genotype and simple translation of the genotype into phenotype. The more complex EAs simulate much complex encoding and translation. These more complex algorithms typically come up with more terms from biological evolution. For example codons, alleles and so on, that desribe substructures in the individual's genotype. Evolutionary operators of these more complex EAs are able to handle these more sophisticated structures, thus descriptions of their functionality are also more complex. Grammatical Evolution is one of these more complex EAs.
 
 \subsection{String}
-String representation of the individual is a sequence of genes. These genes can be represented with boolean, integer or real number value.
-The main characteristics of string representation is that two parents can be easily combined into an offstring by a simple cut in the. Mutation is just a change of a value in the gene. Representative example of EA with string representation of the genotype is Genetic Algorithm (GA). EAs with string representation are usually much more easy too implement than EAs with tree-like structure, but it is not a rule. As it was said before, Grammatical Evolution is a complex EA, even though it uses string representation of the genotype. Typically, EAs with this representation of the individual are used for problem solving.
+A string representation of the individual is a sequence of genes. These genes can be represented with boolean, integer or real number value.
+The main characteristics of string representation is that two parents can be easily combined into an offstring by a simple cut in the. Mutation is just a change of a value in the gene. Representative example of EA withthe string representation of the genotype is Genetic Algorithm (GA). EAs with the string representation are usually much more easy too implement than EAs with tree-like structure, but it is not a rule. As it was said before, Grammatical Evolution is a complex EA, even though it uses the string representation of the genotype. Typically, EAs with this representation of the individual are used for problem solving.
 
 \subsection{Tree}
 Tree representation of the individual is a connected graph that contains no cycles \cite{tree-definition}. This representation is often used in EAs, that are used to find and optimize mathematical equations or programs.
@@ -81,7 +81,7 @@ Different types of evolutionary algorithms use similar mechanisms, they differ i
 
 \textbf{Genetic Programming (GP)} is the type of EA, that uses tree-like structures as the representation of the genotype of the individuals. GP is typically used to find a computer program, that efficiently imitates a computational problem. It is also used to find a mathematical function that describe behaviour of given data.
 
-\textbf{Gene expression programming (GEP)} is used for the same cases as GP, but it uses string representation of the genotype by introducing genotype-phenotype system of encoding.
+\textbf{Gene expression programming (GEP)} is used for the same cases as GP, but it uses the string representation of the genotype by introducing genotype-phenotype system of encoding.
 
 \textbf{Evolutionary Programming (EP)} is also similar to GP, but uses only a fixed structure of trees with numerical variables. EP evolves these numerical variables instead of the tree-like structure.
 

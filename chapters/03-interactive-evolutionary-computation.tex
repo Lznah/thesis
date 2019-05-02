@@ -1,10 +1,19 @@
 \chapter{Interactive Evolutionary Computation (IEC)}
-\blindtext
-\subsection{Differences to EC}
-\blindtext
-\subsection{Population}
-\blindtext
-\subsection{Selection}
-\blindtext
-\subsection{User fatique}
-\blindtext
+
+In evolutionary computation, algorithms search a space of parameters and use gradient information of the space to optimize parameters to get solutions of higher quality. Since gradient information of user's feelings, knowledge and preference cannot be used to determine a quality of the solution, it is needed to evalute solutions in different approach that is different from conventional optimization methods \cite{tagakipaper}.
+
+In other words, algorithms of the traditional evolutionary computation optimize solutions of problems, whose performace (fitness) is numerically described and an algorithm is able to compute this performace.
+
+However, some problems do not have the performance evalution of their solutions numerically described, because the description is too difficult or even impossible to specify. These problems typically require a human evaluation, that is also difficult to implement and sometimes, the solution of the given problem requires subjective preferences of an observer. Algorithms that require the human evalution as a replacement of the fitness function are algorithms of \textbf{Interactive Evolutionary Computation (IEC)}. Usually, algorithms of IEC retrieve graphics or music, such outputs must be subjectively evaluated \cite{tagakipaper}. In terminology of EC, algorithms work with genotypes and at the same time with phenotypes. Genotypes are evolved by evolutionary operators, but they are not presented to the user. User gets their phenotypes and expresses his interests and preferences on these phenotypes in the same way as it is shown in figure \ref{interactive-evolutionary-computation.png}.
+
+\imagefigurefull{interactive-evolutionary-computation.png}{General IEC system -- genotypes are decoded into phenotypes, that are retrieved to the user and user provides his feedback on them.\cite{interactive-evolutionary-computation}}{1}
+
+Algorithms of the subgroup evolutionary algorithms can be used with human-based evalution. They are called the same, but with the word ‘interactive’ in the beginning of the original name of the algorithm, to show that the evaluation is human-based. For example, \textbf{Interactive Genetic Algorithm} and \textbf{Interactive Genetic Programming} \cite{tagakipaper}.
+
+
+\section{Differences of IEC to EC}
+The main difference is the human evalution of the fitness of individuals, but there is more to deal with. People are different to computers and unlike to computers, they are not capable of making hundreds or even more calculations and computations each seconds. Their are also biased because of their preferences and this means that each person can evaluate one individual differently. The user's preferences can be desired in other applications.
+\section{User fatique}
+User fatique is an issue, that all IEC systems have to deal with. If user has to evaluate a lot of individuals from population, he usually gets easily exhausted in a few steps of the evolution. Also, he gets exhausted, if he has to do many steps in the evolution to get desired result.
+
+To prevent the user to get easily exhausted, the IEC system should provide user a small amount of individuals to get evaluated. These individuals should has a high quality, to prevent a high number of evolution steps, that also leads to exhaustion of the user. The small amount of individuals, but with high quality, can be provided by some heuristic approach. Also, to speed up the evolution that convergates to a desired individual in fewer steps, can be also ensured by generating high quality individuals. These heuristic information are usually provided by user.
