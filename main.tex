@@ -6,16 +6,13 @@
 % hidelinks remove colour boxes around hyperlinks
 
 % arara: xelatex: { shell: yes }
-% arara: makeglossaries
-% arara: biber
-% arara: xelatex: { shell: yes }
-% arara: xelatex: { shell: yes }
 \documentclass[thesis=B,english,hidelinks]{template/FITthesisXE}
 
 \bibliography{library.bib}
 \usepackage{import}
 \usepackage{booktabs}
 \usepackage{dirtree}
+%\usepackage{xevlna}
 
 \usepackage{float}
 \floatstyle{plaintop}
@@ -89,9 +86,11 @@
 \input{"chapters/01-state-of-the-art.tex"}
 \input{"chapters/02-evolutionary-computation.tex"}
 \input{"chapters/03-interactive-evolutionary-computation.tex"}
+\input{"chapters/04-building-the-prototype.tex"}
+\input{"chapters/05-usecases.tex"}
 
 \begin{conclusion}
-    \input{"chapters/0x-conclusion.tex"}
+    \input{"chapters/06-conclusion.tex"}
 \end{conclusion}
 
 \printbibliography[]
