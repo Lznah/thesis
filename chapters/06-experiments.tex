@@ -1,0 +1,183 @@
+\chapter{Experiments}
+To shown how the prototype works, I have chosen tree experiments. All of them defines visualizations, that the prototype should produce in the end. I also show which visualization were chosen to be bred. All the measurements are strongly dependant on my knowledge, preferences, decisions that I make and randomness of evolutionary approach, which is problematic for the measurements, that are not objective, but strongly subjective and coincidence dependant. The measurements primarily show the actual interactive evolutionary computation applied on a grammar instead of efficiency of evolutionary algorithms.
+\section{Experiment 1: Students performance in Exams}
+The dataset contains information about students, their gender, race/ethnicity, scores in math, reading and writing and other information. The dataset was downloaded \cite{students-performance-in-exams}.
+
+\subsection{Goal}
+At first, I generated the visualization, that is shown in figure \ref{pic:students-performance-in-exams-goal.png}. I have chosen this visualization, because I would not be able to show crossover on an easier one. The goal of this experiment is to generate at least a similar visualization. It means, that the axes should be mapped in the same way to the fields \textbf{math score} and \textbf{reading score}, but mark properties are arbitrary. The final visualization must distinguish categories of nominal field \textbf{gender}.
+
+\imagefigure{students-performance-in-exams-goal.png}{The desired visualization for the experiment 1.}
+
+\subsection{Evolution}
+
+As it is shown in figure \ref{pic:evolution-diagram-experiment1.png}, there are two individuals selected for breeding in the first iteration, which is an initialization. Thwy are chosen, because the first one contains binning of \textbf{math score} field and the second is selected, because I prefer its mark encoding, which is \textbf{fill} instead of \textbf{bar}.
+Probability of change is set to zero, because I want get in the next generation only siblings, that are simple recombinations of the mappings of these two visualizations.
+
+In the second interation, I get \textbf{math score} field mapped to \textbf{y} axis and \textbf{gender} field to \textbf{fill} mark property. The only feature, that is missing in the visualization, is the aggregation of \textbf{reading} field. This is fixed in the sixth iteration, after the individual from the second iteration is repeteadly chosen into four iterations with 15~\% probability of change. As it is alone in the population, the only genetic operator applied on these on the individual is the mutation.
+
+In the sixth iteration, algorithm returned desired visualization. The axis are swaped and it uses different mark property, but it shows the same relation between \textbf{average reading score}, \textbf{gender} and \textbf{math score}, that is also binned. The final visualization specification is shown in listing \ref{code:specification-experiment1}.
+
+\imagefigurefull{evolution-diagram-experiment1.png}{The diagram of chosen individuals during iterations for the experiment 1.}{1}
+
+\begin{listing}[htbp]
+\caption{\label{code:specification-experiment1}The final visualization's specification from the experiment 1.}
+\begin{minted}[bgcolor=codebg]{js}
+{
+  /* Top-level Specifications and common properties were removed,
+   because they are not evolved by the prototype. */
+  "mark": "square",
+  "encoding": {
+    "fill": {
+      "field": "gender",
+      "type": "nominal"
+    },
+    "x": {
+      "field": "reading score",
+      "type": "quantitative",
+      "aggregate": "average"
+    },
+    "y": {
+      "type": "quantitative",
+      "bin": true,
+      "field": "math score"
+    }
+  }
+}
+\end{minted}
+\end{listing}
+\clearpage
+\subsection{Results}
+\begin{table}[htbp]
+      \centering
+      \caption{Measurings of needed interations to reach sufficient visualization for experiment 1.}
+      \label{table:results}
+          \begin{tabular}{ r | c c c c c c c c c c | c }
+          \hline
+              \textbf{Measuring} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{Avg} \\
+          \toprule
+\hline \# of interations & 6 & 18 & 25 & 8 & 33 & 17 & 52 & 2 & 43 & 26 & 23  \\ \hline
+          \end{tabular}
+\end{table}
+
+\clearpage
+
+\section{Experiment 2: Heart Diseases}
+The dataset contains information about patients with heart diseases, their gender, type of chest pain that the patient reported, a resting blood pressure, and more vital signs. The dataset was also downloaded from Kaggle \cite{heart-diseases}.
+\subsection{Goal}
+The goal for the second use case is to find such visualization of \textbf{Heart Diseases} dataset, that shows different types of chest pain \textbf{cp} by \textbf{age} and with maximum heart rate achieved \textbf{thalach}.
+\subsection{Evolution}
+The process of evolution is shown in figure \ref{pic:evolution-diagram-experiment2.png}. In the first iteration, only one individual was chosen for breeding, because the other individual were subjectively considered as not promising for breeding. From the second iteration to fifth iteration, I was not satisfied with generated individuals and this is the reason, why the same individual was used from the second iteration until I was satisfied enough with two new individuals that I tried to breed. The first parent was chosen, because I thought that a stacked bar graph could be a good approach to reach the goal. The second parent was chosen, because I wanted to save the same mapping of axes. In sixth iteration, I was not satisfied with generated offsprings, so I tried to breed the same parents again in the seventh iteration, which gave me one promising visualization, which I tried to slightly mutate, so I lowered the probability of mutation rate. This gave me two promising visualizations. However, the combination of them took five more iteration to breed such an individual, that I thought is good enough. I needed to add some aggregation to the vizualization, so I set the probability of change relatively low with expections, that the mutation would change only a small part of individual's genotype. By that, I produces stacked bar chart, that shows, which groups of people have problems with heart rate levels accompanied by which chest pains. The final specification is shown in listing \ref{code:specification-experiment2}.
+
+\imagefigurelarge{evolution-diagram-experiment2.png}{The diagram of chosen individuals during iterations for the experiment 2.}
+
+\begin{listing}[htbp]
+\caption{\label{code:specification-experiment2}The final visualization's specification from the experiment 2.}
+\begin{minted}[bgcolor=codebg]{js}
+{
+  /* Top-level Specifications and common properties were removed,
+   because they are not evolved by the prototype. */
+  "mark": "bar",
+  "encoding": {
+    "color": {
+      "field": "cp",
+      "type": "nominal"
+    },
+    "x": {
+      "aggregate": "average",
+      "field": "thalach",
+      "type": "quantitative"
+    },
+    "y": {
+      "field": "age",
+      "type": "quantitative",
+      "bin": true
+    }
+  }
+}
+\end{minted}
+\end{listing}
+\subsection{Results}
+
+\begin{table}[htbp]
+      \centering
+      \caption{Measurings of needed interations to reach sufficient visualization for experiment 2.}
+      \label{table:results}
+          \begin{tabular}{ r | c c c c c c c c c c | c }
+          \hline
+              \textbf{Measuring} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{Avg} \\
+          \toprule
+\hline \# of interations  & 21 & 17 & 19 & 6 & 2 & 5 & 11 & 13 & 16 & 10 & 12 \\ \hline
+          \end{tabular}
+\end{table}
+
+\clearpage
+
+\section{Experiment 3: Graduate Admission}
+The dataset contains information are considered to be important for application on master's studies. The information includes TOEFL scores, GRE scores, Change of Admit, university rankings and more. The dataset was also downloaded from Kaggle \cite{graduate-admission}.
+\subsection{Goal}
+Find a bar graph, that shows average change of admit for different university rankings.
+\subsection{Evolution}
+Because of expected simplicity of the final graph, I bet on random intialization every iteration to get two axes with \textbf{University Ranking} and \textbf{Average of Change of Admit}. After several iterations, both axes were present in some graphs, so I compounded them into one graph by crossover with 0~\% probability of change. The same approch is described in figure \ref{pic:evolution-diagram-experiment2.png}. The final specification is shown in listing \ref{code:specification-experiment3}.
+
+
+\subsection{Results}\begin{table}[htbp]
+      \centering
+      \caption{Measurings of needed interations to reach sufficient visualization for experiment 2.}
+      \label{table:results}
+          \begin{tabular}{ r | c c c c c c c c c c | c }
+          \hline
+              \textbf{Measuring} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{Avg} \\
+          \toprule
+\hline \# of interations  & 5 & 1 & 4 & 3 & 3 & 2 & 2 & 2 & 14 & 2 & 3.8 \\ \hline
+          \end{tabular}
+\end{table}
+
+\begin{listing}[htbp]
+\caption{\label{code:specification-experiment3}The final visualization's specification from the experiment 2.}
+\begin{minted}[bgcolor=codebg]{js}
+{
+  /* Top-level Specifications and common properties were removed,
+   because they are not evolved by the prototype. */
+   "mark": "rect",
+   "encoding": {
+     "x": {
+       "type": "nominal",
+       "field": "University Rating"
+     },
+     "y": {
+       "field": "Chance of Admit",
+       "aggregate": "average",
+       "type": "quantitative"
+     }
+   }
+ }
+\end{minted}
+\end{listing}
+
+\imagefigurelarge{evolution-diagram-experiment3.png}{The diagram of chosen individuals during iterations for the experiment 2.}
+
+\section{Summary}
+As it was predicted before, all the experiments took variant number of iterations to reach the desired goal. I have noticed that EA usually reaches an almost same looking visualization in just a few iterations, but struggles to produce from this visualization the exactly same look visualization from the goal. This happens, because the lowest changes in the tree genotype are typically in the lowest level of this tree and the mutation process, during the traversal of the tree, more-likely changes a totally different leaf of the tree or it changes the whole subtree.
+\begin{table}[htbp]
+      \centering
+      \caption{Summary of needed iterations for all experiments}
+      \label{table:results}
+          \begin{tabular}{ c | c | c }
+          \hline
+              \textbf{Experiment 1} & \textbf{Experiment 2} & \textbf{Experiment 3} \\
+          \toprule
+\hline 6 & 10 & 5 \\
+\hline 18 & 21 & 1 \\
+\hline 25 & 17 & 4 \\
+\hline 8 & 19 & 3 \\
+\hline 33 & 6 & 3 \\
+\hline 17 & 2 & 2 \\
+\hline 52 & 5 & 2 \\
+\hline 2 & 11 & 2 \\
+\hline 43 & 13 & 14 \\
+\hline 26 & 16 & 2 \\
+\hline 26 & 16 & 2 \\
+\hline \textbf{Avg.} & \textbf{Avg.} & \textbf{Avg.} \\
+\hline 26 & 16 & 2 \\
+          \end{tabular}
+\end{table}

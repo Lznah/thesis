@@ -1,4 +1,4 @@
-\chapter{Evolutionary Computation (EC)}
+\chapter{Evolutionary Computation (EC)}\label{chapter2}
 In computer science, evolutionary computation is an umbrella term for algorithms, that are inspired by biological evolution with similar mechanisms seen in nature and used on computer for automated global optimization. A goal of evolutionary computation is to produce highly optimized solutions from initial set by repeteadly applying similar mechanisms from the biological evolution in an attempt, that each iteration of applying these mechanisms over big set of solution, produces similar solutions to continuesly get better optimized solutions. Evolutionary computation has numerous applications in problem solving, designing, planning, machine learning an more \cite{handbook-of-evolutionary-computation}.
 
 \section{Evolutionary Algorithm (EA)}
@@ -10,24 +10,43 @@ Evolutionary algorithms are a subgroup of algorithms from evolutionary computati
   \item recombination (crossover)
 \end{itemize}
 
-They are called evolutionary operators \cite{evolutionary-operators} and ways how they are applied on an individual from a population, differ from one algorithm to another, but all of them simulates the same principle from the biological evolution. The order how these operators are applied is shown in figure \ref{pic:evolutionaryalgorithm.png}. Even same called EAs can use a bit different evolutionary operators. What defines EAs more than evolutionary operator is a representation of an individual.
+They are called evolutionary operators \cite{evolutionary-operators} and ways how they are applied on an individual from a population, differ from one algorithm to another, but all of them simulates the same principle from the biological evolution. The order how these operators are applied is shown in figure \ref{pic:evolutionaryalgorithm.png}. Even same called EAs can use a bit different evolutionary operators. What defines EAs more than evolutionary operator is a representation of an individual \cite{evolutionary-algorithms}.
 
-Usually, scientists distinquist two basic structures representing the individual, tree-like structures and string structures. These structures can not be mixed in population. That means, the evolutionary algorithm can not use tree-like structure and string structure at the same time, in the same population, because there is no way how to combine the solutions, which is a pillar of evolutionary computation, but a tree-like structure can be encoded into a string \cite{gene-expression}. Additionaly, these structures use different representation of a single gene in its genetic code. It can be integer, binary or real number representation of a gene for string structured chromosomes.
+Usually, scientists distinquist two basic structures representing the individual, tree-like structures and string structures. These structures can not be mixed in population. That means, the evolutionary algorithm can not use tree-like structure and string structure at the same time, in the same population, because there is no way how to combine the solutions, which is a pillar of evolutionary computation, but a tree-like structure can be encoded into a string \cite{gene-expression}. Additionaly, these structures use different representation of a single gene in its genetic code. It can be integer, binary or real number representation of a gene for string structured chromosomes \cite{genetic-programming}.
 
 
-\imagefigurelarge{evolutionaryalgorithm.png}{Evolutionary Algorithm \cite{evolutionary-algorithm-image}}
+\imagefigurelarge{evolutionaryalgorithm.png}{Evolutionary Algorithm}
+
+\section{Types of Evolutionary Algorithms}
+
+Different types of evolutionary algorithms use similar mechanisms, they differ in a representation of the genotype and implementation details.
+
+\textbf{Genetic Algorithm (GA)} is the most popular type of EA and usually easiest to implement. GA uses the string representation of the genotype of the individual. GA is usually used for problem solving. By applying evolutionary algorithms described above, the solution of the given problem is being sought. However, definitions of the GA do not always match. In more cases, GA is EA that uses only string genotypes for representing the individual, but in some literature, GA is defined as the generic evolutionary algorithm, so GA an EA are defined as an exactly same algorithm \cite{evolutionary-algorithms}.
+
+\textbf{Genetic Programming (GP)} is the type of EA, that uses tree-like structures as the representation of the genotype of the individuals. GP is typically used to find a computer program, that efficiently imitates a computational problem. It is also used to find a mathematical function that describe behaviour of given data.
+
+\textbf{Gene expression programming (GEP)} is used for the same cases as GP, but it uses the string representation of the genotype by introducing genotype-phenotype system of encoding.
+
+\textbf{Evolutionary Programming (EP)} is also similar to GP, but uses only a fixed structure of trees with numerical variables. EP evolves these numerical variables instead of the tree-like structure.
+
+\textbf{Grammatical Evolution (GE)} is also related to idea of GP, but uses string representation of genotype instead of tree-like structure. It allows to evolve solutions accordinly to grammar, that is provided by user.
+
+\textbf{Differential Evolution (DE)} uses the string representation of the genotype, but genes are in the form of real numbers or a vector.
 
 \section{Individual's Representation}
 In biological evolutions, a genotype and a phenotype are very-similar sounding words. These two terms are related, but they still mean different things.
+
 The genotype is a genetic code, a set of genes, that is inherited from ancestors on an organism. For the organism, its DNA or RNA is its genotype.
+
 The phenotype is a physical expression of these genes, this genotype, and an environmental influence of the organism.
+
 The genotype can not be determined by simple observation, but the phenotype can be. For example, an eye color is the inherited trait from parents. The eye color is written in DNA by the same sequence of genes, but its actual appereance is the phenotype. Furthermore, two people can have same eye color, they share the same phenotype, even though they are not relatives and they do not share the same genotype, same genes \cite{genotype-phenotype}.
 
-Evolutionary algorithm are also distinquished by their ability how acurately they simulate coding and processes from biological evolution. The basic ones, like genetic algorithm or genetic programming, simulate only simple encoding of genes in genotype and simple translation of the genotype into phenotype. The more complex EAs simulate much complex encoding and translation. These more complex algorithms typically come up with more terms from biological evolution. For example codons, alleles and so on, that desribe substructures in the individual's genotype. Evolutionary operators of these more complex EAs are able to handle these more sophisticated structures, thus descriptions of their functionality are also more complex. Grammatical Evolution is one of these more complex EAs.
+Evolutionary algorithm are also distinguished by their ability how acurately they simulate coding and processes from biological evolution. The basic ones, like genetic algorithm or genetic programming, simulate only simple encoding of genes in genotype and simple translation of the genotype into phenotype. The more complex EAs simulate much complex encoding and translation. These more complex algorithms typically come up with more terms from biological evolution. For example codons, alleles and so on, that desribe substructures in the individual's genotype. Evolutionary operators of these more complex EAs are able to handle these more sophisticated structures, thus descriptions of their functionality are also more complex. Grammatical Evolution is one of these more complex EAs \cite{grammatical-evolution}.
 
 \subsection{String}
 A string representation of the individual is a sequence of genes. These genes can be represented with boolean, integer or real number value.
-The main characteristics of string representation is that two parents can be easily combined into an offstring by a simple cut in the. Mutation is just a change of a value in the gene. Representative example of EA withthe string representation of the genotype is Genetic Algorithm (GA). EAs with the string representation are usually much more easy too implement than EAs with tree-like structure, but it is not a rule. As it was said before, Grammatical Evolution is a complex EA, even though it uses the string representation of the genotype. Typically, EAs with this representation of the individual are used for problem solving.
+The main characteristics of string representation is that two parents can be easily combined into an offstring by a simple cut in the. Mutation is just a change of a value in the gene. Representative example of EA with the string representation of the genotype is Genetic Algorithm (GA) \cite{evolutionary-algorithms}. EAs with the string representation are usually much more easy too implement than EAs with tree-like structure, but it is not a rule. As it was said before, Grammatical Evolution is a complex EA, even though it uses the string representation of the genotype. Typically, EAs with this representation of the individual are used for problem solving.
 
 \subsection{Tree}
 Tree representation of the individual is a connected graph that contains no cycles \cite{tree-definition}. This representation is often used in EAs, that are used to find and optimize mathematical equations or programs.
@@ -45,44 +64,30 @@ Again, there are much more algorithms for selection of individuals for breeding,
 
 \imagefigure{fitness-proportiate-selection.png}{Fitness proportiate selection. \cite{fitness-proportiate-selection}}
 
-\textbf{Tournament Selection} iteratively creates a pool(tournament) of $n$ random individuals from population and from this tournament top $m$ individuals with highest fitness are selection for breeding.
+\textbf{Tournament Selection} iteratively creates a pool(tournament) of $n$ random individuals from population and from this tournament top $m$ individuals with highest fitness are selection for breeding \cite{evolutionary-algorithms}.
 
-\textbf{Fitness proportionate selection} could be imagined like a roulette wheel in a casino that is shown in figure  \ref{pic:fitness-proportiate-selection.png}. A proportion of each individual on the wheel is assigned by its fitness. Usually, fitness of each individual is normalized to 1 or divided by total sum of all fitness values. Then, algorithm starts to randomly rotate with the wheel that leads to selecting the individual and lowering its proportion on the wheel.
-
+\textbf{Fitness proportionate selection} could be imagined like a roulette wheel in a casino that is shown in figure  \ref{pic:fitness-proportiate-selection.png}. A proportion of each individual on the wheel is assigned by its fitness. Usually, fitness of each individual is normalized to 1 or divided by total sum of all fitness values. Then, algorithm starts to randomly rotate with the wheel that leads to selecting the individual and lowering its proportion on the wheel \cite{evolutionary-algorithms}.
 
 \subsection{Mutation}
-In biology, mutation is a biological process, that changes random genes in the genotype of the individual, in an attempt to find new characteristics, that can be very useful in a life of a new born creature. Exploration of these new characteristics can still create weaker creatures, that are not able to spread their genes in following generation and natural selection can deal with them, but characteristics discovered by mutation have not been discovered in creature's parents yet . Not-yet discovered features can help the creature to survive in the changing environment and this is the reason, why it is so important.
+In biology, mutation is a biological process, that changes random genes in the genotype of the individual, in an attempt to find new characteristics, that can be very useful in a life of a new born creature. Exploration of these new characteristics can still create weaker creatures, that are not able to spread their genes in following generation and natural selection can deal with them, but characteristics discovered by mutation have not been discovered in creature's parents yet \cite{evolutionary-algorithms}. Not-yet discovered features can help the creature to survive in the changing environment and this is the reason, why it is so important.
 
-In evolutionary algorithms, mutation works exactly the same way. It can also create worse-optimized individuals, but its biggest benefit is that it find new ways and helps EA to not stuck in local optimum.
+In evolutionary algorithms, mutation works exactly the same way. It can also create worse-optimized individuals, but its biggest benefit is that it find new ways and helps EA to not stuck in local optimum \cite{evolutionary-algorithms}.
 
-\textbf{Mutation of the string genotype} is a random change to different value of a random gene in the individual's genotype. It is shown in figure \ref{pic:string-mutation.png}, where 4 genes out of 7 of the individual's genotype are changed. There are two blue big squares, that are mutated into red small squares and there are also two red small squares, that are mutated into big blue squares. This created a new individual, that might be better optimized than the previous one.
+\textbf{Mutation of the string genotype} is a random change to different value of a random gene in the individual's genotype. It is shown in figure \ref{pic:string-mutation.png}, where 4 genes out of 7 of the individual's genotype are changed. There are two blue big squares, that are mutated into red small squares and there are also two red small squares, that are mutated into big blue squares. This created a new individual, that might be better optimized than the previous one \cite{evolutionary-algorithms}.
 
-\textbf{Mutation of the tree-like genotype} is a random expansion of a random node in the tree to a different node or a different subtree. It is shown in figure \ref{pic:tree-mutation.png}, where is the arrow pointing at the red node. This whole subtree of the red node with its two sons is replaced by a different subtree.
+\textbf{Mutation of the tree-like genotype} is a random expansion of a random node in the tree to a different node or a different subtree. It is shown in figure \ref{pic:tree-mutation.png}, where is the arrow pointing at the red node. This whole subtree of the red node with its two sons is replaced by a different subtree \cite{genetic-programming}.
 
-\imagefigure{string-mutation.png}{Mutation of the string genotype \cite{string-mutation}}
-\imagefigurefull{tree-mutation.png}{Mutation of the tree-like genotype \cite{tree-mutation}}{1}
+\imagefigure{string-mutation.png}{Mutation of the string genotype.}
+\imagefigurefull{tree-mutation.png}{Mutation of the tree-like genotype.}{1}
 \clearpage
 
 \subsection{Recombination}
-Also known as crossover, recombination is a method that uses genotype of one or two parents to produce genotypes of one or two individuals. Two basic types of recombination are asexual and sexual recombination and they are distinquished by number of included parents in the newly created genotype and procedure that makes these descendants. Traditionally, asexual recombination is not possible for same length string genotypes, but it is possible for variable length string genotypes and for tree-like ones. Asexual recombination is not possible for same length string genotypes, because of their representation. A new individual with different genotypes can not be created from the same length sequence of values, because it is always identical to its parent. Tree-like genotypes can always change at least their leaves of subtrees. Variable length sequences can shrink.
+Also known as crossover, recombination is a method that uses genotype of one or two parents to produce genotypes of one or two individuals. Two basic types of recombination are asexual and sexual recombination and they are distinguished by number of included parents in the newly created genotype and procedure that makes these descendants. Traditionally, asexual recombination is not possible for same length string genotypes, but it is possible for variable length string genotypes and for tree-like ones. Asexual recombination is not possible for same length string genotypes, because of their representation. A new individual with different genotypes can not be created from the same length sequence of values, because it is always identical to its parent. Tree-like genotypes can always change at least their leaves of subtrees. Variable length sequences can shrink .
 
-\textbf{Recombination of the string genotype} concatenates two subsequencies from genotypes of two parents to create an offspring as it is shown in figure \ref{pic:string-recombination.png}. As it was said above, asexual recombination is possible only for genotypes with the variable length and not for genotypes with the same length, bacause it leads to creation of the same genotype of individual as individual's parent.
+\textbf{Recombination of the string genotype} concatenates two subsequencies from genotypes of two parents to create an offspring as it is shown in figure \ref{pic:string-recombination.png}. As it was said above, asexual recombination is possible only for genotypes with the variable length and not for genotypes with the same length, bacause it leads to creation of the same genotype of individual as individual's parent \cite{evolutionary-algorithms}.
 
-\textbf{Recombination of the tree-like genotype}, also called crossover, is a mechanism, which randomly chooses two nodes in trees of one or two parents. These nodes then represent two subtrees that are exchanged to create one or two individuals as it is shown in figure \ref{pic:tree-recombination.png}. The number of created individuals depends on an implementation of the recombination algorithm.
-\imagefigure{string-recombination.png}{Recombination of the string genotype \cite{string-recombination}}{1}
-\imagefigurefull{tree-recombination.png}{Recombination of the tree-like genotype \cite{tree-recombination}}{1}
+\textbf{Recombination of the tree-like genotype}, also called crossover, is a mechanism, which randomly chooses two nodes in trees of one or two parents. These nodes then represent two subtrees that are exchanged to create one or two individuals as it is shown in figure \ref{pic:tree-recombination.png}. The number of created individuals depends on an implementation of the recombination algorithm \cite{genetic-programming}.
+\imagefigure{string-recombination.png}{Recombination of the string genotype.}
+\imagefigurefull{tree-recombination.png}{Recombination of the tree-like genotype.}{1}
 
 \clearpage
-
-\section{Types of Evolutionary Algorithms}
-
-Different types of evolutionary algorithms use similar mechanisms, they differ in a representation of the genotype and implementation details.
-\textbf{Genetic Algorithm (GA)} is the most popular type of EA and usually easiest to implement. GA uses the string representation of the genotype of the individual. GA is usually used for problem solving. By applying evolutionary algorithms described above, the solution of the given problem is being sought. However, definitions of the GA do not always match. In more cases, GA is EA that uses only string genotypes for representing the individual \todo{zdroj}, but in some literature, GA is defined as the generic evolutionary algorithm, so GA an EA are defined as an exactly same algorithm \todo{zdroj}.
-
-\textbf{Genetic Programming (GP)} is the type of EA, that uses tree-like structures as the representation of the genotype of the individuals. GP is typically used to find a computer program, that efficiently imitates a computational problem. It is also used to find a mathematical function that describe behaviour of given data.
-
-\textbf{Gene expression programming (GEP)} is used for the same cases as GP, but it uses the string representation of the genotype by introducing genotype-phenotype system of encoding.
-
-\textbf{Evolutionary Programming (EP)} is also similar to GP, but uses only a fixed structure of trees with numerical variables. EP evolves these numerical variables instead of the tree-like structure.
-
-\textbf{Differential Evolution (DE)} uses the string representation of the genotype, but genes are in the form of real numbers or a vector.

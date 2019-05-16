@@ -1,0 +1,263 @@
+\chapter{Grammar evolution of graph interfaces}
+
+Usually, spoken languages like Czech have their own grammar. To say a correct sentence in the language means to follow the grammar of that language. It does not mean, that the sentence must have a meaning. It can be a nonsense either. The important is, that the sentence is syntactically corrent. In other words, it means that the sentence is created by applying rules from the grammar of the language. Every programming language is also described by its grammar.
+
+Mathematical abstraction of a grammar is known as \textbf{formal grammar}.
+\section{Formal grammar}
+  \subsection{Definition}
+  A formal grammar is a set of rules for constructing valid sentences from a language. The formal grammar $G$ is a quadruple  $(N, T, P, S)$ \cite{formal-grammar} where:
+    \begin{itemize}
+      \item $N$ is a nonempty set of nonterminal symbols.
+      \item $T$ is a nonempty set of terminal symbols.
+      \item $P$ is a set of production rules.
+      \item $S$ is a starting symbol.
+    \end{itemize}
+  \subsection{Vocabulary}
+    \begin{description}
+      \item[nonterminal] \hfill \\ a symbol that can be replaced/expanded by a sequence of symbols
+      \item[terminal] \hfill \\ a symbol that cannot be replaced/expanded by anything else.
+      \item[production rule] \hfill \\ a grammar rule that describes an expansion for a symbol. The sequence is replaces by a symbol or sequence of symbols.
+      \item[derivation] \hfill \\ a sequence of applied rules that produces finished string of terminals.
+      \item[starting symbol] \hfill \\ a grammar has at least one starting nonterminal symbol, from which all strings derive.
+      \item[empty symbol] \hfill \\ a symbol that can be replaced by nothing.
+    \end{description}
+
+  \textbf{Example of the formal grammar:}
+  \begin{align*}
+      G &= (N, T, P, S) \\
+      N &= \{A, B\} \\
+      T &= \{x, y\} \\
+      P &= \{ A \rightarrow Bx | y, \\
+      &\hspace{8 mm} B \rightarrow x | y, \\
+      S &= \{A\}
+  \end{align*}
+
+  This grammar can produce strings \textbf{xx}, \textbf{yx} and \textbf{y}. A derivation tree of the string \textbf{xy} is shown in figure \ref{pic:derivationtree.png}.
+
+  \imagefigure{derivationtree.png}{A derivation tree of a string.}
+
+
+
+  \subsection{Chomsky hiearchy}
+  In addition, grammars are distinguished into four categories by the form of their production rules, and by the class of languages they generate. They span from Type 0 to Type 3. The most general grammars are Type 0 grammars and the most restrictive are Type 3 grammars \cite{formal-grammar}. Chomsky hiearchy and the constaints on the production rules are described in table \ref{table:chomsky-hiearchy}, where:
+
+  \begin{itemize}
+    \item $a$ is a terminal symbol.
+    \item $A, B$ are non terminals.
+    \item $\alpha, \beta$ are strings that contain sequences of terminals and nonterminals. They can be replaced by empty symbol.
+    \item $\gamma$ is a string that contains a sequence of terminals and nonterminals. It cannot be replaced by empty symbol.
+  \end{itemize}
+
+  \begin{table}[htbp]
+        \centering
+        \caption{Chomsky hiearchy}
+        \label{table:chomsky-hiearchy}
+            \begin{tabular}{| l | l | l |}
+            \hline
+                \textbf{Grammar} & \textbf{Language} & \textbf{Production rules} \\
+            \toprule
+  \hline Type 0 & Recursively enumerable & $\alpha A \beta \rightarrow \beta$ \\
+  \hline Type 1 & Context-sensitive & $\alpha A \beta \rightarrow \alpha \gamma \beta$ \\
+  \hline Type 2 & Context-free & $A \rightarrow \beta$ \\
+  \hline Type 3 & Regular & $A \rightarrow A \text{ or } A \rightarrow aB $\\\hline
+            \end{tabular}
+  \end{table}
+
+  \subsection{Backus--Naur Form}
+  Backus--Naur Form or Backus Normal Form (BNF) is a notation technique for expression context-free grammars.
+  It consists of \textbf{a set of terminal symbols}, \textbf{a set of nonterminal symbols}, \textbf{a set of start symbols}, and \textbf{a set of production rules} it this form:
+  \begin{minted}[fontsize=\large]{bnf}
+        <Left-Hand-Side> ::= <Right-Hand-Side>
+  \end{minted}
+
+  The symbol \mintinline{bnf}{::=} denoted translation symbol from left-hand side to symbol on right-hand side. All the nonterminals are surrounded by inequality brackets \mintinline{bnf}{<>}. A vertical bar \mintinline{bnf}{|} indicates a choise. BNF does not support the empty string~$\epsilon$~\cite{backus-naur-form}.
+
+  \textbf{For example, in BNF, the previously shown grammar:}
+    \begin{minted}[fontsize=\large]{bnf}
+    <A> ::= <B>x | y
+    <B> ::= x | y
+    \end{minted}
+
+\section{Evolutionary algorithms for evolving grammars}
+The concept of the evolution is based on the representation of derivation trees.
+\subsection{Genetic Programming}
+Genetic programming is a simple way for evolving derivation trees. It uses mechanisms that are applied on tree-like genotypes, because it directly works with tree-like structure \cite{genetic-programming}.
+
+
+\subsection{Grammatical Evolution}
+Grammatical evolution (GE) is more sophisticated way, that goes even deeper in an attempt to mimic the natural evolutionary process. Genetic Programming uses genotypes, which has the same structure like deviation trees, but GE encodes a genotype into binary string of variable-length. This string is transcripted integers, which are blocks of 8 binary values. These integers are called codons. Codons are mapped onto grammar rules that with assigned terminals makeup the derivation tree \cite{grammatical-evolution}. For better understanding, check the figure \ref{pic:grammatical-evolution.png}.
+
+\imagefigurelarge{grammatical-evolution.png}{Comparison between the GE system and a biological genetic system \cite{grammatical-evolution}.}
+
+A grammar for Grammatical Evolution is provided in Backus-Naur Form (BNF). It is not a requirement, to specify the entire language by BNF. Perhaps, it is more useful to specify just a subset of the language geared towards the given problem \cite{grammatical-evolution}.
+
+The genotype (binary string) is mapped by reading codons (8 bits) to an integer. This integer is then used for selecting an appropriate production rule by using this following mapping function:
+
+\begin{align*}
+  &rule = (codon integer value)\\
+  &\hspace{20 mm} MOD\\
+  &(number of rules for the current nonterminal).
+\end{align*}
+
+The traversal of the genotype is done by reading codons, and if production rule is selected, another codon has to be read. It is possible that during mapping process, the individual runs out of codons. In that case, EA wraps the individual and reuses the codons. Authors claim that this technique of gene-overlapping phenomen has been observed in many organizms \cite{grammatical-evolution}.
+
+The GA adopted to the variable-length genotype is used in this case. With GA there comes advantages of GA, which are evolutionary operators and initialization, that are relatively simply to realize for GA, because of the string-based genotype. More evolutionary operators can be applied on the populating, because of recognition of codons in the genotype. They are evolutionary operators, based on mutation and crossover of the codons\cite{grammatical-evolution}.
+
+\section{Grammar of graph interfaces}
+For the purpose of applying evolution process on a grammar, Vega \cite{vega-not-lite} framework, as a tool for creating visualizations, was chosen, because it supports specification of a visualization by JSON syntax, that is described by Vega-Lite grammar \cite{vega}.
+\subsection{Vega-Lite}
+  Vega-Lite is a high-level visualization grammar of interactive graphics, a declarative language for creating, saving and sharing visualizations. It is build on top of Vega visualization grammar to provides a concise JSON syntax for rapidly generating visualization to support data analysis \cite{vega}.
+
+  A Vega-Lite specification describes a visualization as mappings from data to properties of graphical marks and this specification is defined in a JSON format\cite{vega}. The specification is parsed by Vega-Lite's JavaScript runtime compiler to automatically generate this specification into a lower-level, more detailed Vega \cite{vega-not-lite} specification that uses its compiler to render visualization components, such as axes, marks, legends and scale of the defined vizualization as a static image or as a web-based view. Thanks to carefully defined rules, Vega-Lite also automatically determines properties of these components to keep specifications succinct and expressive, but still provide user control.
+
+  As Vega-Lite is designed for analysis, it supports data transformations such as aggregation, sorting, binning and visualization tranformations stacking and faceting. It also supports composion of visualizations to create layered and multi-view displays with an additional support of interactive selection.
+
+  However, for the purpose of this thesis, further descriptions of multi-view composions, also complex transformations and selection of data is not needed. Interactive interfaces of the visualizations are also not needed to be defined, even thought. This thesis primarily focus on application evolutionary mechanism on the mappings of data values to mark properties.
+
+  In the following reading, there are described only parts of all features, properties and functions of Vega-Lite, that are minimally required for the understanding of the Vega-Lite, its syntax, structure and which parts of Vega-Lite are used for this thesis.
+
+  \subsubsection{Common Properties of Specifications}
+  All specifications in Vega-Lite can contain properties as \textbf{name} for later reference, \textbf{description} for comments, \textbf{title} of the vizualization, \textbf{data} as a data source, that can be loaded inline or from an external source and \textbf{transform} array of data transformation of the given data for calculating new fields and for filtering of given data. The prototype in this thesis does not actively work with any of these properties.
+
+  \subsubsection{Top-level Specifications}
+  All specification can contain these following top-level specifications. The prototype also does not actively work with these properties. The properties are \textbf{\$schema}, which is a source of Vega-Lite specification, \textbf{background} as CSS color property, \textbf{padding} from the edge of the visualization canvas to the data rectangle, \textbf{autosize}, that sets how the visualization size should be determined and \textbf{config}, which is Vega-Lite configuration object.
+
+  \subsubsection{Single View Specification}
+
+  \begin{listing}[htbp]
+  \caption{\label{code:single-view-example}A structure of a single view specification in Vega-Lite \cite{vega-lite-single-view-specification}}
+  \begin{minted}[bgcolor=codebg]{js}
+{
+  // Properties for top-level specification
+  "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+  "background": ...,
+  "padding": ...,
+  "autosize": ...,
+  "config": ...,
+
+  // Properties for any specifications
+  "title": ...,
+  "name": ...,
+  "description": ...,
+  "data": ...,
+  "transform": ...,
+
+  // Properties for any single view specifications
+  "width": ...,
+  "height": ...,
+  "mark": ...,
+  "encoding": {
+    "x": {
+      "field": ...,
+      "type": ...,
+      ...
+    },
+      "y": ...,
+      "color": ...,
+      ...
+    }
+}
+\end{minted}
+\end{listing}
+  A single view specification describes a mark type of the visualization and encoding mapping between data features and properties of the mark. Once the mark type and the encoding is provided, Vega-Lite produces axes, legends and scales of the visualization that follows carefully defined rules. With these rules, Vega-Lite is also able to determine properties of these components and also give a negative feedback, if the specification is not valid and Vega-Lite has to change the specification \cite{vega-lite-single-view-specification}. The summarization of available properties for a single view specification are described in the table \ref{table:single-view-specifications}. An structural example of a single view specification is show in listing \ref{code:single-view-example}.
+
+  \begin{table}[htbp]
+        \centering
+        \caption{Description of properties for single view specification\cite{vega-lite-single-view-specification}}
+        \label{table:single-view-specifications}
+            \begin{tabular}{ m{8em} m{22em} }
+            \toprule
+                \textbf{Property} & \textbf{Description} \\
+            \toprule
+
+       mark                         & \textbf{Required}. A string describing the mark type (one of "bar", "circle", "square", "tick", "line", "area", "point", "rule", "geoshape", and "text") or a mark definition object. \\
+\hline encoding    & A key-value mapping between encoding channels and definition of fields. \\
+\hline width               & The width of a visualization. \\
+\hline height           & The height of a visualization. \\
+\hline view             & An object defining the view background’s fill and stroke. Not needed. \\
+\hline selection     & A key-value mapping between selection names and definitions. \\
+\hline projection    & An object defining properties of geographic projection, which will be applied to shape path for "geoshape" marks and to latitude and "longitude" channels for other marks. \\
+\hline
+            \end{tabular}
+        \end{table}
+
+\clearpage
+
+\subsubsection{Encoding}
+To encode a particular field from the dataset to the mark property, this mapping's definition must be provided by user and described in an \textbf{encoding} object.
+The mapping of the field to the channel (like \textbf{x}, \textbf{y} or \textbf{color}) must contain \textbf{field} property and \textbf{type} property, which is data type of the field. In addition to top-level \textbf{transform} object, the Vega-Lite also supports inline tranforms of fields in a channel's definition.
+
+From all the \textbf{encoding channels} shown in listing \ref{code:encoding-example}, the prototype allows to map and evolve fields to \textbf{x}, \textbf{y} channels and all \textbf{Mark Properties channels} (e.g., \textbf{color}, \textbf{fillOpacity}, \textbf{strokeOpacity}, \textbf{size} and \textbf{shape}). The other channels are not needed for purpose of this thesis, because they do not affect appearence of generated visualizations (Text, Tooltip, Hyperlink, Order, Level of Detail and Facet channels) or they would require much more provided information from the user before start of the evolutionary process. For example Geographic Position Channels require an image of a map and transformation of positions in data to project the rows in data on the map.
+\begin{listing}[htbp]
+\caption{\label{code:encoding-example}Structure of the encoding property for a single view specification \cite{vega-lite-encoding-single-view}}
+\begin{minted}[bgcolor=codebg]{js}
+// Specification of a Single View
+{
+  "data": ... ,
+  "mark": ... ,
+  "encoding": {     // Encoding
+    // Position Channels
+    "x": ...,
+    "y": ...,
+    "x2": ...,
+    "y2": ...,
+
+    // Geographic Position Channels
+    "longtitude": ...,
+    "latitude": ...,
+    ...
+
+    // Mark Properties Channels
+    "color": ...,
+    "opacity": ...,
+    "fillOpacity": ...,
+    "strokeOpacity": ...,
+    "strokeWidth": ...,
+    "size": ...,
+    "shape": ...,
+
+    // Text and Tooltip Channels
+    "text": ...,
+    "tooltip": ...,
+
+    // Hyperlink Channel
+    "href": ...,
+
+    // Key Channel
+    "key": ...,
+
+    // Order Channel
+    "order": ...,
+
+    // Level of Detail Channel
+    "detail": ...,
+
+    // Facet Channels
+    "facet": ...,
+    "row": ...,
+    "column": ...
+  },
+  ...
+}
+\end{minted}
+\end{listing}
+
+\begin{table}[htbp]
+      \centering
+      \caption{Supported field properties\cite{vega-lite-channel-definition}}
+      \label{table:channel-definition}
+          \begin{tabular}{ m{8em} m{22em} }
+          \toprule
+              \textbf{Property} & \textbf{Description} \\
+          \toprule
+
+     field                         & \textbf{Required}. A string defining the field from the dataset. \\
+\hline type    & \textbf{Required} A data type of the encoded field (e.g., \textbf{quantitative}, \textbf{temporal}, \textbf{ordinal} and \textbf{nominal}).  \\
+\hline bin               & A flag for binning of a \textbf{quantitative} field. It can be \textbf{true}, \textbf{false} or \textbf{BinParams} object. For the purpose of the prototype, only \textbf{true} and \textbf{false} are considered.  \\
+\hline timeUnit           & Time unit for a \textbf{temporal} field. Because of not supporting \textbf{temporal} fields, this property is absolutely ignored in the prototype. \\
+\hline aggregate             & Aggreation function for the field. Available values are: \textbf{mean}, \textbf{sum}, \textbf{median}, \textbf{min}, \textbf{max} and \textbf{count}.  \\
+\hline title     & A title for a field. It is not very interesting for showing functionality of the prototype. Because of that, the default field title from dataset is used instead or the title corresponds with aggregate function over the values of the field. \\
+\hline
+          \end{tabular}
+      \end{table}
+\clearpage
